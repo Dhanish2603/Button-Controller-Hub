@@ -4,12 +4,13 @@ const socketIo = require("socket.io");
 const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
+const corsMiddleware = cors({
+  origin: '*:*',
+  methods: ["GET", "POST"],
+});
 const io = socketIo(server, {
-  cors: {
-    origin: ["*"],
-    methods: ["GET", "POST"],
-  }, 
-}); 
+  cors: corsMiddleware,
+});
 io.on("connection", (socket) => {
   console.log("Client connected");
 
